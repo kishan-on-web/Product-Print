@@ -1,0 +1,72 @@
+<h1>It's Kishan</h1>
+
+<h3>Product</h3>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$productCollectionFactory = $objectManager->get('\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory');
+
+$productCollection = $productCollectionFactory->create();
+$productCollection->addAttributeToSelect('*');
+$productCollection->load();
+
+echo '<table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>';
+
+foreach ($productCollection as $product) {
+    echo '<tr>
+            <td>' . $product->getId() . '</td>
+            <td>' . $product->getName() . '</td>
+            <td>' . $product->getPrice() . '$</td>
+        </tr>';
+}
+
+
+echo '</tbody></table>';
+?>
+
+<br /><br /><br />
+
+<h3>Orders Product</h3>
+
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$orderCollectionFactory = $objectManager->get('\Magento\Sales\Model\ResourceModel\Order\CollectionFactory');
+
+$orderCollection = $orderCollectionFactory->create();
+$orderCollection->addAttributeToSelect('*');
+$orderCollection->load();
+
+echo '<table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Increment ID</th>
+                <th>Customer Name</th>
+                <th>Grand Total</th>
+                <th>Status</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>';
+
+foreach ($orderCollection as $order) {
+    echo '<tr>
+            <td>' . $order->getId() . '</td>
+            <td>' . $order->getIncrementId() . '</td>
+            <td>' . $order->getCustomerName() . '</td>
+            <td>' . $order->getGrandTotal() . '$</td>
+            <td>' . $order->getStatus() . '</td>
+            <td>' . $order->getCreatedAt() . '</td>
+        </tr>';
+}
+
+echo '</tbody></table>';
+
+?>
